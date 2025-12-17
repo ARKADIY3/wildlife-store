@@ -65,8 +65,10 @@ if (session_status() === PHP_SESSION_NONE) {
               flex-wrap: wrap;
           }
 
-          .nav strong { font-size: 1.25rem; color: var(--text); font-weight: 800; }
-          .nav-right { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+            .nav strong { font-size: 1.25rem; color: var(--text); font-weight: 800; }
+            .nav-right { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+            .nav a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+            .nav a:hover { color: var(--primary-hover); }
 
           /* Main Content */
           main.container {

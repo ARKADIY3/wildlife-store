@@ -15,25 +15,56 @@ include 'header.php';
 
 <h1>Админ-панель Fixik</h1>
 
-<div class="card card-pad">
-    <h2>Статистика</h2>
-    <ul>
-        <li>Товаров: <?php echo $products_count; ?></li>
-        <li>Пользователей: <?php echo $users_count; ?></li>
-        <li>Заказов: <?php echo $orders_count; ?></li>
-        <li>Новых сообщений: <?php echo $contacts_count; ?></li>
-    </ul>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+    <div class="card">
+        <h2 style="margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--primary);">📊 Статистика</h2>
+        <div style="display: grid; gap: 1rem;">
+            <div style="padding: 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary);">
+                <div style="font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem;">Товаров</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $products_count; ?></div>
+            </div>
+            <div style="padding: 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid #10b981;">
+                <div style="font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem;">Пользователей</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $users_count; ?></div>
+            </div>
+            <div style="padding: 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid #f59e0b;">
+                <div style="font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem;">Заказов</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $orders_count; ?></div>
+            </div>
+            <div style="padding: 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid #ef4444;">
+                <div style="font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem;">Новых сообщений</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $contacts_count; ?></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--primary);">⚙️ Управление</h2>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <a href="products.php" style="display: block; padding: 0.875rem 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary); transition: all 0.2s; text-decoration: none; color: var(--text); font-weight: 500;">
+                📦 Управление товарами
+            </a>
+            <a href="categories.php" style="display: block; padding: 0.875rem 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary); transition: all 0.2s; text-decoration: none; color: var(--text); font-weight: 500;">
+                📁 Управление категориями
+            </a>
+            <a href="orders.php" style="display: block; padding: 0.875rem 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary); transition: all 0.2s; text-decoration: none; color: var(--text); font-weight: 500;">
+                🛒 Управление заказами
+            </a>
+            <a href="users.php" style="display: block; padding: 0.875rem 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary); transition: all 0.2s; text-decoration: none; color: var(--text); font-weight: 500;">
+                👥 Управление пользователями
+            </a>
+            <a href="contacts.php" style="display: block; padding: 0.875rem 1rem; background: #f9fafb; border-radius: var(--radius); border-left: 3px solid var(--primary); transition: all 0.2s; text-decoration: none; color: var(--text); font-weight: 500;">
+                ✉️ Сообщения обратной связи
+            </a>
+        </div>
+    </div>
 </div>
 
-<div class="card card-pad">
-    <h2>Управление</h2>
-    <ul>
-        <li><a href="products.php">Управление товарами</a></li>
-        <li><a href="categories.php">Управление категориями</a></li>
-        <li><a href="orders.php">Управление заказами</a></li>
-        <li><a href="users.php">Управление пользователями</a></li>
-        <li><a href="contacts.php">Сообщения обратной связи</a></li>
-    </ul>
-</div>
+<style>
+.card a:hover {
+    background: #eff6ff !important;
+    transform: translateX(4px);
+}
+</style>
 
 <?php include 'footer.php'; ?>
