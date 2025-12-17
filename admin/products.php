@@ -1,0 +1,69 @@
+<?php
+require_once '../includes/config.php';
+
+if (!isAdmin()) {
+    redirect('../login.php');
+}
+
+$message = '';
+
+if (isset($_GET['delete'])) {
+    $id = (int)$_GET['delete'];
+    $stmt = $conn->prepare("SELECT image FROM products WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $product = $stmt->get_result()->fetch_assoc();
+    
+    if ($product && $product['image'] !== 'default.png') {
+        $image_path = '../uploads/products/' . $product['image'];
+        if (file_exists($image_path)) {
+            unlink($image_path);
+        }
+    }
+    
+    $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $message = 'Товар удален';
+}
+
+$products = $conn->query("SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.id DESC");
+
+include 'header.php';
+?>
+
+<h1>Управление товарами</h1>
+
+<?php if ($message): ?>
+    <p style="color: green;"><?php echo $message; ?></p>
+<?php endif; ?>
+
+<p><a href="product_add.php">+ Добавить товар</a></p>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Фото</th>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Цена</th>
+        <th>Остаток</th>
+        <th>Действия</th>
+    </tr>
+    <?php while ($product = $products->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $product['id']; ?></td>
+            <td><img src="/Fixik/uploads/products/<?php echo htmlspecialchars($product['image']); ?>" width="60"></td>
+            <td><?php echo htmlspecialchars($product['name']); ?></td>
+            <td><?php echo htmlspecialchars($product['category_name'] ?? 'Без категории'); ?></td>
+            <td><?php echo number_format($product['price'], 0, ',', ' '); ?> ₽</td>
+            <td><?php echo $product['stock']; ?></td>
+            <td>
+                <a href="product_edit.php?id=<?php echo $product['id']; ?>">Редактировать</a> | 
+                <a href="products.php?delete=<?php echo $product['id']; ?>" onclick="return confirm('Удалить товар?')">Удалить</a>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</table>
+
+<?php include 'footer.php'; ?>
