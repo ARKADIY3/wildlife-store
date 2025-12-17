@@ -21,6 +21,8 @@ $result = $conn->query("SELECT p.*, c.name as category_name FROM products p LEFT
 <?php endwhile; ?>
 </div>
 
-<p><a href="catalog.php">Смотреть весь каталог</a></p>
+<div style="text-align: center; margin: 30px 0;">
+    <a href="catalog.php" class="btn">Смотреть весь каталог</a>
+</div>
 
 <?php include 'includes/footer.php'; ?>

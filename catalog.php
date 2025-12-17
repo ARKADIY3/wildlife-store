@@ -69,37 +69,45 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
 <form method="GET" class="filters-form">
     <fieldset>
         <legend>Фильтры и поиск</legend>
-        <p>
-            <label>Поиск: <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Название, процессор, видеокарта..."></label>
-        </p>
-        <p>
-            <label>Категория: 
-            <select name="category">
-                <option value="0">Все категории</option>
-                <?php while ($cat = $categories->fetch_assoc()): ?>
-                    <option value="<?php echo $cat['id']; ?>" <?php echo $category_id == $cat['id'] ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($cat['name']); ?>
-                    </option>
-                <?php endwhile; ?>
-            </select></label>
-        </p>
-        <p>
-            <label>Цена от: <input type="number" name="min_price" value="<?php echo $min_price > 0 ? $min_price : ''; ?>" placeholder="0"></label>
-            <label>до: <input type="number" name="max_price" value="<?php echo $max_price > 0 ? $max_price : ''; ?>" placeholder="999999"></label>
-        </p>
-        <p>
-            <label>Сортировка:
-            <select name="sort">
-                <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Сначала новые</option>
-                <option value="price_asc" <?php echo $sort === 'price_asc' ? 'selected' : ''; ?>>Цена: по возрастанию</option>
-                <option value="price_desc" <?php echo $sort === 'price_desc' ? 'selected' : ''; ?>>Цена: по убыванию</option>
-                <option value="name" <?php echo $sort === 'name' ? 'selected' : ''; ?>>По названию</option>
-            </select></label>
-        </p>
-        <p>
-            <button type="submit">Применить</button>
-            <a href="catalog.php">Сбросить</a>
-        </p>
+        <div class="filters-grid">
+            <label>Поиск
+                <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Название, процессор...">
+            </label>
+            
+            <label>Категория
+                <select name="category">
+                    <option value="0">Все категории</option>
+                    <?php while ($cat = $categories->fetch_assoc()): ?>
+                        <option value="<?php echo $cat['id']; ?>" <?php echo $category_id == $cat['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($cat['name']); ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+            </label>
+
+            <div class="price-range">
+                <label>Цена от
+                    <input type="number" name="min_price" value="<?php echo $min_price > 0 ? $min_price : ''; ?>" placeholder="0">
+                </label>
+                <label>до
+                    <input type="number" name="max_price" value="<?php echo $max_price > 0 ? $max_price : ''; ?>" placeholder="Max">
+                </label>
+            </div>
+
+            <label>Сортировка
+                <select name="sort">
+                    <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Сначала новые</option>
+                    <option value="price_asc" <?php echo $sort === 'price_asc' ? 'selected' : ''; ?>>Цена: по возрастанию</option>
+                    <option value="price_desc" <?php echo $sort === 'price_desc' ? 'selected' : ''; ?>>Цена: по убыванию</option>
+                    <option value="name" <?php echo $sort === 'name' ? 'selected' : ''; ?>>По названию</option>
+                </select>
+            </label>
+
+            <div class="filters-actions">
+                <button type="submit">Применить</button>
+                <a href="catalog.php" class="btn" style="background: var(--muted); border-color: var(--muted);">Сбросить</a>
+            </div>
+        </div>
     </fieldset>
 </form>
 

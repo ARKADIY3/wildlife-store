@@ -15,359 +15,218 @@ if (session_status() === PHP_SESSION_NONE) {
             --card: #ffffff;
             --text: #111827;
             --muted: #6b7280;
-            --border: rgba(17, 24, 39, 0.12);
-            --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --primary: #2563eb;
-            --primary-600: #1d4ed8;
-            --danger: #b91c1c;
-            --success: #047857;
-            --radius: 14px;
+            --primary-hover: #1d4ed8;
+            --danger: #dc2626;
+            --success: #059669;
+            --radius: 8px;
         }
 
         * { box-sizing: border-box; }
-        html { scrollbar-gutter: stable; }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.45;
-        }
-
-        body.site {
-            min-height: 100vh;
+            line-height: 1.5;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        main.container { flex: 1; }
-
-        img { max-width: 100%; height: auto; display: block; }
-
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { color: var(--primary-600); text-decoration: underline; }
+        a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--primary-hover); }
 
         .container {
-            width: min(1120px, calc(100% - 32px));
-            margin-inline: auto;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
+        /* Header */
         .site-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
-            z-index: 10;
-            background: rgba(246, 247, 251, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            z-index: 50;
         }
 
         .nav {
             display: flex;
             align-items: center;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            gap: 10px 14px;
-            padding: 14px 0;
         }
 
-        .nav strong { font-size: 18px; letter-spacing: 0.2px; }
+        .nav strong { font-size: 1.25rem; color: var(--text); }
+        .nav-right { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
 
-        main.container { padding: 22px 0 36px; }
+        /* Main Content */
+        main.container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            flex: 1;
+        }
 
-        h1 { font-size: 28px; margin: 0 0 14px; }
-        h2 { font-size: 20px; margin: 0 0 12px; }
-        h3 { font-size: 16px; margin: 0 0 10px; }
-        p { margin: 0 0 12px; }
+        h1, h2, h3 { margin-top: 0; }
+        h1 { font-size: 2rem; margin-bottom: 1.5rem; }
 
-        ul { margin: 0 0 12px; padding-left: 18px; }
-
+        /* Cards */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
+            padding: 1.5rem;
         }
 
-        .card-pad { padding: 18px; }
-        .card + .card { margin-top: 16px; }
-
-        .form-card {
-            width: min(520px, 100%);
-            padding: 18px;
-            margin: 0 auto;
-        }
-
-        label { display: block; font-weight: 600; margin-bottom: 6px; }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"],
-        input[type="tel"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: #fff;
-            color: var(--text);
-            outline: none;
-        }
-
-        textarea { resize: vertical; }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: rgba(37, 99, 235, 0.55);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-        }
-
-        button {
-            appearance: none;
-            border: 1px solid rgba(37, 99, 235, 0.35);
-            background: var(--primary);
-            color: #fff;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        button:hover { background: var(--primary-600); }
-
-        fieldset {
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--card);
-            box-shadow: var(--shadow);
-            padding: 16px;
-        }
-
-        legend {
-            font-weight: 800;
-            padding: 0 10px;
-            max-width: 100%;
-        }
-
-        /* Каталог: фильтры и поиск */
-        .filters-form fieldset { margin: 0; }
-        .filters-form p { margin: 0 0 12px; display: flex; gap: 12px; flex-wrap: wrap; }
-        .filters-form p:last-child { margin-bottom: 0; align-items: center; }
-        .filters-form label {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            min-width: min(320px, 100%);
-            font-weight: 700;
-        }
-        .filters-form label input,
-        .filters-form label select { flex: 1; min-width: 180px; }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        @media (max-width: 980px) {
-            .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
-
-        @media (max-width: 640px) {
-            .products-grid { grid-template-columns: 1fr; }
-        }
-
-        .product-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            padding: 14px;
-            display: grid;
-            gap: 10px;
-        }
-
-        /* 1:1 для карточек товаров (index.php, catalog.php) */
-        .product-card img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: #f3f4f6;
-        }
-
-        .product-card p { margin: 0; color: var(--muted); }
-        .product-card p strong { color: var(--text); }
-
-        .product-detail {
-            display: grid;
-            grid-template-columns: 420px 1fr;
-            gap: 16px;
-            align-items: start;
-        }
-
-        @media (max-width: 900px) {
-            .product-detail { grid-template-columns: 1fr; }
-        }
-
-        .product-image,
-        .product-info {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 16px;
-        }
-
-        .product-image img {
-            width: 100%;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: #f3f4f6;
-        }
-
-        /* Окно подробного просмотра: отступы и современный вид */
-        .product-info { display: grid; gap: 12px; }
-        .product-info h3 { margin: 6px 0 0; }
-        .product-info ul { margin: 0; }
-
-        .product-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: end;
-            margin-top: 6px;
-        }
-
-        .product-actions p { margin: 0; }
-        .product-actions label { margin: 0; }
-        .product-actions input[type="number"] { width: 160px; }
-
-        /* Таблицы */
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            overflow: hidden;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        th, td {
-            padding: 12px 12px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-            text-align: left;
-        }
-
-        th {
-            background: #f3f4f6;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #374151;
-        }
-
-        tr:last-child td { border-bottom: none; }
-
-        @media (max-width: 760px) {
-            table { display: block; overflow-x: auto; }
-        }
-
-        .alert {
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: #fff;
-        }
-
-        .alert-error {
-            border-color: rgba(185, 28, 28, 0.25);
-            background: rgba(185, 28, 28, 0.06);
-            color: var(--danger);
-        }
-
-        .alert-success {
-            border-color: rgba(4, 120, 87, 0.25);
-            background: rgba(4, 120, 87, 0.07);
-            color: var(--success);
-        }
-
-        .hint {
+        /* Buttons */
+        .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            position: relative;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.2s;
+        }
+        .btn:hover { background-color: var(--primary-hover); color: white; text-decoration: none; }
+        .btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-danger { background-color: var(--danger); }
+        .btn-danger:hover { background-color: #b91c1c; }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+        .btn-block { width: 100%; }
+        
+        /* Forms */
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .hint__badge {
-            width: 22px;
-            height: 22px;
-            border-radius: 999px;
-            border: 1px solid var(--border);
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
             background: var(--card);
-            color: var(--muted);
-            display: grid;
-            place-items: center;
-            font-weight: 800;
-            cursor: default;
-            user-select: none;
-        }
-
-        .hint__content {
-            position: absolute;
-            left: 0;
-            top: calc(100% + 10px);
-            width: max-content;
-            max-width: min(520px, calc(100vw - 32px));
-            padding: 12px 14px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius);
+            overflow: hidden;
             box-shadow: var(--shadow);
-            color: var(--text);
-            display: none;
+            margin-bottom: 1rem;
         }
+        th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: #f9fafb; font-weight: 600; font-size: 0.875rem; text-transform: uppercase; color: var(--muted); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #f9fafb; }
 
-        .hint:hover .hint__content { display: block; }
-        .hint__content div { margin: 6px 0; color: var(--muted); }
-        .hint__content strong { color: var(--text); }
+        /* Alerts */
+        .alert { padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem; }
+        .alert-success { background-color: #d1fae5; color: #065f46; }
+        .alert-error { background-color: #fee2e2; color: #991b1b; }
 
-        /* Контакты: центр + вертикально */
-        .stack-center {
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            align-items: center;
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #fff;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .product-content { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
+        .product-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .product-price { font-weight: 700; color: var(--primary); font-size: 1.25rem; margin-top: auto; }
+        .product-meta { color: var(--muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+
+        /* Login Hint */
+        .hint-container { position: relative; display: inline-block; margin-top: 1rem; }
+        .hint-trigger {
+            cursor: help;
+            color: var(--muted);
+            border-bottom: 1px dashed var(--muted);
+        }
+        .hint-content {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #374151;
+            color: white;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            width: max-content;
+            max-width: 300px;
+            font-size: 0.875rem;
+            z-index: 100;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+        .hint-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #374151 transparent transparent transparent;
+        }
+        .hint-container:hover .hint-content { display: block; }
+        .hint-content p { margin: 0.25rem 0; }
+
+        /* Catalog Filters */
+        .catalog-layout { display: flex; gap: 2rem; align-items: flex-start; }
+        .filters-sidebar { width: 250px; flex-shrink: 0; }
+        .catalog-content { flex: 1; }
+        @media (max-width: 768px) {
+            .catalog-layout { flex-direction: column; }
+            .filters-sidebar { width: 100%; }
         }
 
-        .stack-center > .card { width: min(760px, 100%); }
-
-        /* Логин/регистрация: центрирование */
-        .auth-page {
-            width: min(520px, 100%);
-            margin: 0 auto;
+        /* Footer */
+        .site-footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 0;
+            margin-top: auto;
+            color: var(--muted);
             text-align: center;
         }
-
-        .auth-page .hint { justify-content: center; }
-        .auth-page form { text-align: left; }
-        .auth-page .alert { text-align: left; }
-        .auth-links { text-align: center; }
-
-        .site-footer {
-            border-top: 1px solid var(--border);
-            padding: 18px 0;
-            color: var(--muted);
-        }
-
-        .site-footer p { margin: 0; text-align: center; }
     </style>
 </head>
 <body class="site">
@@ -377,18 +236,21 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="/Fixik/index.php"><strong>Fixik</strong></a>
             <a href="/Fixik/catalog.php">Каталог</a>
             <a href="/Fixik/contact.php">Контакты</a>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="/Fixik/cart.php">Корзина</a>
-                <a href="/Fixik/orders.php">Мои заказы</a>
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                    <a href="/Fixik/admin/index.php">Админ-панель</a>
+            
+            <div class="nav-right">
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="/Fixik/cart.php">Корзина</a>
+                    <a href="/Fixik/orders.php">Мои заказы</a>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                        <a href="/Fixik/admin/index.php" class="btn btn-sm btn-outline">Админ-панель</a>
+                    <?php endif; ?>
+                    <span style="color: var(--muted); font-size: 0.9rem;">Привет, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+                    <a href="/Fixik/logout.php" style="color: var(--danger);">Выход</a>
+                <?php else: ?>
+                    <a href="/Fixik/login.php">Вход</a>
+                    <a href="/Fixik/register.php" class="btn btn-sm">Регистрация</a>
                 <?php endif; ?>
-                <span style="color: var(--muted);">Привет, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
-                <a href="/Fixik/logout.php">Выход</a>
-            <?php else: ?>
-                <a href="/Fixik/login.php">Вход</a>
-                <a href="/Fixik/register.php">Регистрация</a>
-            <?php endif; ?>
+            </div>
         </nav>
     </div>
 </header>

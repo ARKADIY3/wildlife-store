@@ -63,9 +63,9 @@ include 'includes/header.php';
     <h1>Вход</h1>
 
     <p class="hint">
-        <span style="color: var(--muted);">Тестовые данные для входа</span>
         <span class="hint__badge">?</span>
         <span class="hint__content">
+            <div>Тестовые данные для входа</div>
             <div><strong>Админ:</strong> admin / 123456</div>
             <div><strong>Пользователь:</strong> user / 123456</div>
         </span>
