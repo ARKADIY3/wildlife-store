@@ -153,12 +153,18 @@ if (session_status() === PHP_SESSION_NONE) {
             align-items: end;
         }
         
-        .price-range { display: flex; gap: 0.5rem; align-items: center; }
-        .price-range label { margin-bottom: 0; flex: 1; font-size: 0.9rem; }
-        .price-range input { padding: 0.5rem; }
+        /* Fix for price range inputs height and alignment */
+        .price-range { display: flex; gap: 0.5rem; align-items: end; }
+        .price-range label { margin-bottom: 0; flex: 1; font-size: 0.9rem; display: flex; flex-direction: column; }
+        .price-range input { padding: 0.625rem; width: 100%; }
 
-        .filters-actions { display: flex; gap: 1rem; }
-        .filters-actions button, .filters-actions .btn { height: 42px; width: 100%; }
+        .filters-actions { 
+            display: flex; 
+            gap: 1rem; 
+            grid-column: 1 / -1; /* Make buttons span full width to prevent overflow */
+            margin-top: 0.5rem;
+        }
+        .filters-actions button, .filters-actions .btn { height: 42px; flex: 1; }
 
         /* Tables */
         table {
@@ -208,10 +214,18 @@ if (session_status() === PHP_SESSION_NONE) {
         .product-card p:last-child { padding-bottom: 1rem; margin-top: auto; display: flex; gap: 0.5rem; }
         
         /* Auth Page */
-        .auth-page { max-width: 400px; margin: 2rem auto; }
+        .auth-page { max-width: 400px; margin: 2rem auto; text-align: center; }
         .auth-links { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
+        .form-card { text-align: left; } /* Ensure form content aligns left */
 
-        /* Tooltip (Login Hint) */
+        /* Stack Center (Contact) */
+        .stack-center {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
         .hint {
             position: relative;
             display: inline-flex;
