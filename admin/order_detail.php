@@ -46,7 +46,7 @@ include 'header.php';
 </ul>
 
 <h2>Товары</h2>
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>Фото</th>
         <th>Товар</th>

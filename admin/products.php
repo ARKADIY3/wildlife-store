@@ -35,12 +35,12 @@ include 'header.php';
 <h1>Управление товарами</h1>
 
 <?php if ($message): ?>
-    <p style="color: green;"><?php echo $message; ?></p>
+    <div class="alert alert-success"><?php echo $message; ?></div>
 <?php endif; ?>
 
 <p><a href="product_add.php">+ Добавить товар</a></p>
 
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>ID</th>
         <th>Фото</th>

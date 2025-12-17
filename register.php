@@ -42,29 +42,29 @@ include 'includes/header.php';
 <h1>Регистрация</h1>
 
 <?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
+    <div class="alert alert-error"><?php echo $error; ?></div>
 <?php endif; ?>
 
 <?php if ($success): ?>
-    <p style="color: green;"><?php echo $success; ?></p>
+    <div class="alert alert-success"><?php echo $success; ?></div>
 <?php endif; ?>
 
-<form method="POST">
+<form class="card form-card" method="POST">
     <p>
-        <label>Имя пользователя:<br>
-        <input type="text" name="username" required></label>
+        <label for="username">Имя пользователя</label>
+        <input id="username" type="text" name="username" required>
     </p>
     <p>
-        <label>Email:<br>
-        <input type="email" name="email" required></label>
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required>
     </p>
     <p>
-        <label>Пароль:<br>
-        <input type="password" name="password" required></label>
+        <label for="password">Пароль</label>
+        <input id="password" type="password" name="password" required>
     </p>
     <p>
-        <label>Подтвердите пароль:<br>
-        <input type="password" name="confirm_password" required></label>
+        <label for="confirm_password">Подтвердите пароль</label>
+        <input id="confirm_password" type="password" name="confirm_password" required>
     </p>
     <p><button type="submit">Зарегистрироваться</button></p>
 </form>

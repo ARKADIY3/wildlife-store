@@ -52,7 +52,7 @@ include 'includes/header.php';
                     <button type="submit">Добавить в корзину</button>
                 </form>
             <?php else: ?>
-                <p style="color: red;">Товар закончился</p>
+                <div class="alert alert-error">Товар закончился</div>
             <?php endif; ?>
         <?php else: ?>
             <p><a href="login.php">Войдите</a>, чтобы добавить товар в корзину</p>

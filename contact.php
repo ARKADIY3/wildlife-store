@@ -50,46 +50,52 @@ include 'includes/header.php';
 
 <h1>Контакты / Обратная связь</h1>
 
-<h2>Наши контакты</h2>
-<ul>
-    <li>Адрес: г. Москва, ул. Компьютерная, д. 42</li>
-    <li>Телефон: +7 (495) 123-45-67</li>
-    <li>Email: info@fixik.ru</li>
-    <li>Режим работы: Пн-Пт 9:00-20:00, Сб-Вс 10:00-18:00</li>
-</ul>
+<div class="cards-grid">
+    <div class="card card-pad">
+        <h2>Наши контакты</h2>
+        <ul>
+            <li>Адрес: г. Белореченск, ул. Комсомольска, д. 20</li>
+            <li>Телефон: +7 (495) 123-45-67</li>
+            <li>Email: info@fixik.ru</li>
+            <li>Режим работы: Пн-Пт 9:00-20:00, Сб-Вс 10:00-18:00</li>
+        </ul>
+    </div>
 
-<h2>Написать нам</h2>
+    <div class="card card-pad">
+        <h2>Написать нам</h2>
 
-<?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
-<?php endif; ?>
+        <?php if ($error): ?>
+            <div class="alert alert-error"><?php echo $error; ?></div>
+        <?php endif; ?>
 
-<?php if ($success): ?>
-    <p style="color: green;"><?php echo $success; ?></p>
-<?php endif; ?>
+        <?php if ($success): ?>
+            <div class="alert alert-success"><?php echo $success; ?></div>
+        <?php endif; ?>
 
-<form method="POST">
-    <p>
-        <label>Ваше имя:<br>
-        <input type="text" name="name" value="<?php echo htmlspecialchars($name ?? ''); ?>" required></label>
-    </p>
-    <p>
-        <label>Email:<br>
-        <input type="email" name="email" value="<?php echo htmlspecialchars($email ?? ''); ?>" required></label>
-    </p>
-    <p>
-        <label>Тема:<br>
-        <input type="text" name="subject" value="<?php echo htmlspecialchars($subject ?? ''); ?>" required></label>
-    </p>
-    <p>
-        <label>Сообщение:<br>
-        <textarea name="message" rows="5" cols="40" required><?php echo htmlspecialchars($message ?? ''); ?></textarea></label>
-    </p>
-    <p>
-        <label>Проверка (<?php echo $_SESSION['captcha_question']; ?> = ?):<br>
-        <input type="number" name="captcha" required></label>
-    </p>
-    <p><button type="submit">Отправить</button></p>
-</form>
+        <form method="POST">
+            <p>
+                <label for="name">Ваше имя</label>
+                <input id="name" type="text" name="name" value="<?php echo htmlspecialchars($name ?? ''); ?>" required>
+            </p>
+            <p>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" value="<?php echo htmlspecialchars($email ?? ''); ?>" required>
+            </p>
+            <p>
+                <label for="subject">Тема</label>
+                <input id="subject" type="text" name="subject" value="<?php echo htmlspecialchars($subject ?? ''); ?>" required>
+            </p>
+            <p>
+                <label for="message">Сообщение</label>
+                <textarea id="message" name="message" rows="5" required><?php echo htmlspecialchars($message ?? ''); ?></textarea>
+            </p>
+            <p>
+                <label for="captcha">Проверка (<?php echo $_SESSION['captcha_question']; ?> = ?)</label>
+                <input id="captcha" type="number" name="captcha" required>
+            </p>
+            <p><button type="submit">Отправить</button></p>
+        </form>
+    </div>
+</div>
 
 <?php include 'includes/footer.php'; ?>

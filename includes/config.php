@@ -95,9 +95,30 @@ if (!$tables_exist) {
 
     // Вставляем тестовые данные
     // Пользователи (пароль: 123456)
-    $conn->query("INSERT INTO users (username, email, password, role) VALUES
-        ('admin', 'admin@fixik.ru', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-        ('user', 'user@fixik.ru', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user')");
+    $testPasswordHash = password_hash('123456', PASSWORD_DEFAULT);
+
+    $adminUsername = 'admin';
+    $adminEmail = 'admin@fixik.ru';
+    $adminRole = 'admin';
+
+    $userUsername = 'user';
+    $userEmail = 'user@fixik.ru';
+    $userRole = 'user';
+
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?), (?, ?, ?, ?)");
+    $stmt->bind_param(
+        "ssssssss",
+        $adminUsername,
+        $adminEmail,
+        $testPasswordHash,
+        $adminRole,
+        $userUsername,
+        $userEmail,
+        $testPasswordHash,
+        $userRole
+    );
+    $stmt->execute();
+    $stmt->close();
 
     // Категории
     $conn->query("INSERT INTO categories (name, description) VALUES
@@ -119,7 +140,60 @@ if (!$tables_exist) {
         ('Fixik Nano', 'Ультракомпактный неттоп', 24990.00, 4, 'Intel Core i3-12100T', '8GB DDR4', '256GB SSD', 'Intel UHD 730', 'nano.png', 25)");
 }
 
-session_start();
+// Гарантируем наличие тестовых аккаунтов и исправляем старые тестовые пароли
+// (например, если ранее были вставлены хэши от другого пароля)
+if ($conn->query("SHOW TABLES LIKE 'users'")->num_rows > 0) {
+    $testPassword = '123456';
+
+    $ensureTestUser = function ($username, $email, $role) use ($conn, $testPassword) {
+        $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ? LIMIT 1");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $row = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        $targetHash = password_hash($testPassword, PASSWORD_DEFAULT);
+
+        if (!$row) {
+            $ins = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+            $ins->bind_param("ssss", $username, $email, $targetHash, $role);
+            $ins->execute();
+            $ins->close();
+            return;
+        }
+
+        $storedPassword = (string)($row['password'] ?? '');
+        $info = password_get_info($storedPassword);
+
+        $needUpdate = false;
+
+        if (($info['algo'] ?? 0) !== 0) {
+            // Если это старый демо-хэш от пароля "password", обновляем на 123456
+            if (!password_verify($testPassword, $storedPassword) && password_verify('password', $storedPassword)) {
+                $needUpdate = true;
+            }
+        } else {
+            // Импорт из schema.sql мог сохранить пароль как обычную строку
+            if (hash_equals($testPassword, $storedPassword)) {
+                $needUpdate = true;
+            }
+        }
+
+        if ($needUpdate) {
+            $upd = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+            $upd->bind_param("si", $targetHash, $row['id']);
+            $upd->execute();
+            $upd->close();
+        }
+    };
+
+    $ensureTestUser('admin', 'admin@fixik.ru', 'admin');
+    $ensureTestUser('user', 'user@fixik.ru', 'user');
+}
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 function isLoggedIn() {
     return isset($_SESSION['user_id']);

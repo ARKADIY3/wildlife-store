@@ -54,11 +54,11 @@ include 'header.php';
 <h1>Управление категориями</h1>
 
 <?php if ($message): ?>
-    <p style="color: green;"><?php echo $message; ?></p>
+    <div class="alert alert-success"><?php echo $message; ?></div>
 <?php endif; ?>
 
 <?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
+    <div class="alert alert-error"><?php echo $error; ?></div>
 <?php endif; ?>
 
 <h2><?php echo $edit_category ? 'Редактировать категорию' : 'Добавить категорию'; ?></h2>
@@ -79,7 +79,7 @@ include 'header.php';
 
 <h2>Список категорий</h2>
 
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>ID</th>
         <th>Название</th>

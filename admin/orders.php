@@ -36,10 +36,10 @@ include 'header.php';
 <h1>Управление заказами</h1>
 
 <?php if ($message): ?>
-    <p style="color: green;"><?php echo $message; ?></p>
+    <div class="alert alert-success"><?php echo $message; ?></div>
 <?php endif; ?>
 
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>№</th>
         <th>Дата</th>

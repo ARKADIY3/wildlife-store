@@ -87,9 +87,10 @@ CREATE TABLE IF NOT EXISTS contacts (
 -- ==========================================
 
 -- Пользователи (пароль для обоих: 123456)
+-- Примечание: если пароль импортирован в открытом виде, при первом успешном входе он автоматически обновится на password_hash()
 INSERT INTO users (username, email, password, role) VALUES
-('admin', 'admin@fixik.ru', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('user', 'user@fixik.ru', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user');
+('admin', 'admin@fixik.ru', '123456', 'admin'),
+('user', 'user@fixik.ru', '123456', 'user');
 
 -- Категории
 INSERT INTO categories (name, description) VALUES

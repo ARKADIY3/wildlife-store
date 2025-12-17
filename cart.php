@@ -20,11 +20,11 @@ include 'includes/header.php';
 <h1>Корзина</h1>
 
 <?php if (isset($_GET['msg'])): ?>
-    <p style="color: green;"><?php echo htmlspecialchars($_GET['msg']); ?></p>
+    <div class="alert alert-success"><?php echo htmlspecialchars($_GET['msg']); ?></div>
 <?php endif; ?>
 
 <?php if ($cart_items->num_rows > 0): ?>
-    <table border="1" cellpadding="10">
+    <table>
         <tr>
             <th>Фото</th>
             <th>Название</th>

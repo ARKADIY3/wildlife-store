@@ -68,11 +68,11 @@ include 'includes/header.php';
 <h1>Оформление заказа</h1>
 
 <?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
+    <div class="alert alert-error"><?php echo $error; ?></div>
 <?php endif; ?>
 
 <h2>Ваш заказ:</h2>
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>Товар</th>
         <th>Цена</th>
