@@ -75,7 +75,7 @@ include 'includes/header.php';
             <label for="password">Пароль</label>
             <input id="password" type="password" name="password" required>
         </p>
-        <p style="margin: 10px 0; font-size: 0.9em; color: #666;">
+        <p style="margin: 10px 0; font-size: 0.9em; color: #666; text-align: center;">
             <span title="Админ: admin / 123456&#10;Пользователь: user / 123456" style="cursor: help; border-bottom: 1px dotted #999;">Тестовые данные для входа</span>
         </p>
         <p class="auth-button-center"><button type="submit">Войти</button></p>
