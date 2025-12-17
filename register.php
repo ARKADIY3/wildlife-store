@@ -39,36 +39,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'includes/header.php';
 ?>
 
-<h1>Регистрация</h1>
+<div class="auth-page">
+    <h1>Регистрация</h1>
 
-<?php if ($error): ?>
-    <div class="alert alert-error"><?php echo $error; ?></div>
-<?php endif; ?>
+    <?php if ($error): ?>
+        <div class="alert alert-error"><?php echo $error; ?></div>
+    <?php endif; ?>
 
-<?php if ($success): ?>
-    <div class="alert alert-success"><?php echo $success; ?></div>
-<?php endif; ?>
+    <?php if ($success): ?>
+        <div class="alert alert-success"><?php echo $success; ?></div>
+    <?php endif; ?>
 
-<form class="card form-card" method="POST">
-    <p>
-        <label for="username">Имя пользователя</label>
-        <input id="username" type="text" name="username" required>
-    </p>
-    <p>
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" required>
-    </p>
-    <p>
-        <label for="password">Пароль</label>
-        <input id="password" type="password" name="password" required>
-    </p>
-    <p>
-        <label for="confirm_password">Подтвердите пароль</label>
-        <input id="confirm_password" type="password" name="confirm_password" required>
-    </p>
-    <p><button type="submit">Зарегистрироваться</button></p>
-</form>
+    <form class="card form-card" method="POST">
+        <p>
+            <label for="username">Имя пользователя</label>
+            <input id="username" type="text" name="username" required>
+        </p>
+        <p>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required>
+        </p>
+        <p>
+            <label for="password">Пароль</label>
+            <input id="password" type="password" name="password" required>
+        </p>
+        <p>
+            <label for="confirm_password">Подтвердите пароль</label>
+            <input id="confirm_password" type="password" name="confirm_password" required>
+        </p>
+        <p><button type="submit">Зарегистрироваться</button></p>
+    </form>
 
-<p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
+    <p class="auth-links">Уже есть аккаунт? <a href="login.php">Войти</a></p>
+</div>
 
 <?php include 'includes/footer.php'; ?>

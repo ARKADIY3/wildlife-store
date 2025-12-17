@@ -46,10 +46,13 @@ include 'includes/header.php';
         
         <?php if (isLoggedIn()): ?>
             <?php if ($product['stock'] > 0): ?>
-                <form method="POST" action="cart_add.php">
+                <form class="product-actions" method="POST" action="cart_add.php">
                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                    <label>Количество: <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>"></label>
-                    <button type="submit">Добавить в корзину</button>
+                    <p>
+                        <label for="quantity">Количество</label>
+                        <input id="quantity" type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
+                    </p>
+                    <p><button type="submit">Добавить в корзину</button></p>
                 </form>
             <?php else: ?>
                 <div class="alert alert-error">Товар закончился</div>

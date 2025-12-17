@@ -25,6 +25,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         * { box-sizing: border-box; }
+        html { scrollbar-gutter: stable; }
 
         body {
             margin: 0;
@@ -33,6 +34,14 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--text);
             line-height: 1.45;
         }
+
+        body.site {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.container { flex: 1; }
 
         img { max-width: 100%; height: auto; display: block; }
 
@@ -63,14 +72,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav strong { font-size: 18px; letter-spacing: 0.2px; }
 
-        main.container {
-            padding: 22px 0 36px;
-        }
+        main.container { padding: 22px 0 36px; }
 
         h1 { font-size: 28px; margin: 0 0 14px; }
         h2 { font-size: 20px; margin: 0 0 12px; }
         h3 { font-size: 16px; margin: 0 0 10px; }
         p { margin: 0 0 12px; }
+
+        ul { margin: 0 0 12px; padding-left: 18px; }
 
         .card {
             background: var(--card);
@@ -80,6 +89,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .card-pad { padding: 18px; }
+        .card + .card { margin-top: 16px; }
 
         .form-card {
             width: min(520px, 100%);
@@ -130,10 +140,30 @@ if (session_status() === PHP_SESSION_NONE) {
             border-radius: var(--radius);
             background: var(--card);
             box-shadow: var(--shadow);
-            padding: 14px 16px;
+            padding: 16px;
         }
 
-        legend { font-weight: 800; padding: 0 8px; }
+        legend {
+            font-weight: 800;
+            padding: 0 10px;
+            max-width: 100%;
+        }
+
+        /* Каталог: фильтры и поиск */
+        .filters-form fieldset { margin: 0; }
+        .filters-form p { margin: 0 0 12px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .filters-form p:last-child { margin-bottom: 0; align-items: center; }
+        .filters-form label {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: min(320px, 100%);
+            font-weight: 700;
+        }
+        .filters-form label input,
+        .filters-form label select { flex: 1; min-width: 180px; }
 
         .products-grid {
             display: grid;
@@ -160,9 +190,10 @@ if (session_status() === PHP_SESSION_NONE) {
             gap: 10px;
         }
 
+        /* 1:1 для карточек товаров (index.php, catalog.php) */
         .product-card img {
             width: 100%;
-            height: 180px;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
             border-radius: 12px;
             border: 1px solid var(--border);
@@ -193,11 +224,30 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .product-image img {
+            width: 100%;
             border-radius: 12px;
             border: 1px solid var(--border);
             background: #f3f4f6;
         }
 
+        /* Окно подробного просмотра: отступы и современный вид */
+        .product-info { display: grid; gap: 12px; }
+        .product-info h3 { margin: 6px 0 0; }
+        .product-info ul { margin: 0; }
+
+        .product-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: end;
+            margin-top: 6px;
+        }
+
+        .product-actions p { margin: 0; }
+        .product-actions label { margin: 0; }
+        .product-actions input[type="number"] { width: 160px; }
+
+        /* Таблицы */
         table {
             width: 100%;
             border-collapse: separate;
@@ -225,6 +275,10 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         tr:last-child td { border-bottom: none; }
+
+        @media (max-width: 760px) {
+            table { display: block; overflow-x: auto; }
+        }
 
         .alert {
             padding: 12px 14px;
@@ -285,22 +339,35 @@ if (session_status() === PHP_SESSION_NONE) {
         .hint__content div { margin: 6px 0; color: var(--muted); }
         .hint__content strong { color: var(--text); }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Контакты: центр + вертикально */
+        .stack-center {
+            display: flex;
+            flex-direction: column;
             gap: 16px;
-            align-items: start;
+            align-items: center;
         }
 
-        @media (max-width: 900px) {
-            .cards-grid { grid-template-columns: 1fr; }
+        .stack-center > .card { width: min(760px, 100%); }
+
+        /* Логин/регистрация: центрирование */
+        .auth-page {
+            width: min(520px, 100%);
+            margin: 0 auto;
+            text-align: center;
         }
+
+        .auth-page .hint { justify-content: center; }
+        .auth-page form { text-align: left; }
+        .auth-page .alert { text-align: left; }
+        .auth-links { text-align: center; }
 
         .site-footer {
             border-top: 1px solid var(--border);
             padding: 18px 0;
             color: var(--muted);
         }
+
+        .site-footer p { margin: 0; text-align: center; }
     </style>
 </head>
 <body class="site">

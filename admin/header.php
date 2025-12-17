@@ -25,6 +25,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         * { box-sizing: border-box; }
+        html { scrollbar-gutter: stable; }
 
         body {
             margin: 0;
@@ -33,6 +34,14 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--text);
             line-height: 1.45;
         }
+
+        body.site {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.container { flex: 1; }
 
         img { max-width: 100%; height: auto; display: block; }
         a { color: var(--primary); text-decoration: none; }
@@ -67,6 +76,52 @@ if (session_status() === PHP_SESSION_NONE) {
         h1 { font-size: 24px; margin: 0 0 14px; }
         h2 { font-size: 18px; margin: 0 0 12px; }
         p { margin: 0 0 12px; }
+        ul { margin: 0 0 12px; padding-left: 18px; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .card-pad { padding: 18px; }
+        .card + .card { margin-top: 16px; }
+
+        label { display: block; font-weight: 600; margin-bottom: 6px; }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+        }
+
+        textarea { resize: vertical; }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(37, 99, 235, 0.55);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        button {
+            appearance: none;
+            border: 1px solid rgba(37, 99, 235, 0.35);
+            background: var(--primary);
+            color: #fff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover { background: var(--primary-600); }
 
         .alert {
             padding: 12px 14px;
@@ -85,26 +140,6 @@ if (session_status() === PHP_SESSION_NONE) {
             border-color: rgba(4, 120, 87, 0.25);
             background: rgba(4, 120, 87, 0.07);
             color: var(--success);
-        }
-
-        button {
-            appearance: none;
-            border: 1px solid rgba(37, 99, 235, 0.35);
-            background: var(--primary);
-            color: #fff;
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        button:hover { background: var(--primary-600); }
-
-        select, input[type="text"], input[type="number"], textarea {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 10px;
-            outline: none;
         }
 
         table {
@@ -135,11 +170,17 @@ if (session_status() === PHP_SESSION_NONE) {
 
         tr:last-child td { border-bottom: none; }
 
+        @media (max-width: 760px) {
+            table { display: block; overflow-x: auto; }
+        }
+
         .site-footer {
             border-top: 1px solid var(--border);
             padding: 18px 0;
             color: var(--muted);
         }
+
+        .site-footer p { margin: 0; text-align: center; }
     </style>
 </head>
 <body class="site">
@@ -153,7 +194,6 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="/Fixik/admin/orders.php">Заказы</a>
             <a href="/Fixik/admin/users.php">Пользователи</a>
             <a href="/Fixik/admin/contacts.php">Сообщения</a>
-            <a href="/Fixik/index.php">На сайт</a>
             <a href="/Fixik/logout.php">Выход</a>
         </nav>
     </div>

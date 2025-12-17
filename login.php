@@ -59,33 +59,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'includes/header.php';
 ?>
 
-<h1>Вход</h1>
+<div class="auth-page">
+    <h1>Вход</h1>
 
-<p class="hint">
-    <span style="color: var(--muted);">Тестовые данные для входа</span>
-    <span class="hint__badge">?</span>
-    <span class="hint__content">
-        <div><strong>Админ:</strong> admin / 123456</div>
-        <div><strong>Пользователь:</strong> user / 123456</div>
-    </span>
-</p>
-
-<?php if ($error): ?>
-    <div class="alert alert-error"><?php echo $error; ?></div>
-<?php endif; ?>
-
-<form class="card form-card" method="POST">
-    <p>
-        <label for="username">Логин или Email</label>
-        <input id="username" type="text" name="username" required>
+    <p class="hint">
+        <span style="color: var(--muted);">Тестовые данные для входа</span>
+        <span class="hint__badge">?</span>
+        <span class="hint__content">
+            <div><strong>Админ:</strong> admin / 123456</div>
+            <div><strong>Пользователь:</strong> user / 123456</div>
+        </span>
     </p>
-    <p>
-        <label for="password">Пароль</label>
-        <input id="password" type="password" name="password" required>
-    </p>
-    <p><button type="submit">Войти</button></p>
-</form>
 
-<p>Нет аккаунта? <a href="register.php">Зарегистрироваться</a></p>
+    <?php if ($error): ?>
+        <div class="alert alert-error"><?php echo $error; ?></div>
+    <?php endif; ?>
+
+    <form class="card form-card" method="POST">
+        <p>
+            <label for="username">Логин или Email</label>
+            <input id="username" type="text" name="username" required>
+        </p>
+        <p>
+            <label for="password">Пароль</label>
+            <input id="password" type="password" name="password" required>
+        </p>
+        <p><button type="submit">Войти</button></p>
+    </form>
+
+    <p class="auth-links">Нет аккаунта? <a href="register.php">Зарегистрироваться</a></p>
+</div>
 
 <?php include 'includes/footer.php'; ?>

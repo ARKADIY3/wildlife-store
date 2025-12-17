@@ -52,10 +52,10 @@ include 'header.php';
 <p><a href="products.php">&larr; Назад к списку</a></p>
 
 <?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
+    <div class="alert alert-error"><?php echo $error; ?></div>
 <?php endif; ?>
 
-<form method="POST" enctype="multipart/form-data">
+<form class="card card-pad" method="POST" enctype="multipart/form-data">
     <p><label>Название:<br><input type="text" name="name" required></label></p>
     <p><label>Описание:<br><textarea name="description" rows="4" cols="50"></textarea></label></p>
     <p><label>Цена (₽):<br><input type="number" name="price" step="0.01" required></label></p>

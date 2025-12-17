@@ -50,17 +50,7 @@ include 'includes/header.php';
 
 <h1>Контакты / Обратная связь</h1>
 
-<div class="cards-grid">
-    <div class="card card-pad">
-        <h2>Наши контакты</h2>
-        <ul>
-            <li>Адрес: г. Белореченск, ул. Комсомольска, д. 20</li>
-            <li>Телефон: +7 (495) 123-45-67</li>
-            <li>Email: info@fixik.ru</li>
-            <li>Режим работы: Пн-Пт 9:00-20:00, Сб-Вс 10:00-18:00</li>
-        </ul>
-    </div>
-
+<div class="stack-center">
     <div class="card card-pad">
         <h2>Написать нам</h2>
 
@@ -95,6 +85,16 @@ include 'includes/header.php';
             </p>
             <p><button type="submit">Отправить</button></p>
         </form>
+    </div>
+
+    <div class="card card-pad">
+        <h2>Наши контакты</h2>
+        <ul>
+            <li>Адрес: г. Белореченск, ул. Комсомольска, д. 20</li>
+            <li>Телефон: +7 (495) 123-45-67</li>
+            <li>Email: info@fixik.ru</li>
+            <li>Режим работы: Пн-Пт 9:00-20:00, Сб-Вс 10:00-18:00</li>
+        </ul>
     </div>
 </div>
 
