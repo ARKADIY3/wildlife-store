@@ -38,7 +38,7 @@ include 'header.php';
     <div class="alert alert-success"><?php echo $message; ?></div>
 <?php endif; ?>
 
-<p><a href="product_add.php">+ Добавить товар</a></p>
+<p><a href="product_add.php" class="btn">+ Добавить товар</a></p>
 
 <table>
     <tr>
