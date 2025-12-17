@@ -62,14 +62,6 @@ include 'includes/header.php';
 <div class="auth-page">
     <h1>Вход</h1>
 
-    <p class="hint">
-        <span class="hint__badge">i</span>
-        <span class="hint__content">
-            <div><strong>Админ:</strong> admin / 123456</div>
-            <div><strong>Пользователь:</strong> user / 123456</div>
-        </span>
-    </p>
-
     <?php if ($error): ?>
         <div class="alert alert-error"><?php echo $error; ?></div>
     <?php endif; ?>
