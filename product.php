@@ -29,30 +29,52 @@ include 'includes/header.php';
     </div>
     
     <div class="product-info">
-        <p><strong>Цена: <?php echo number_format($product['price'], 0, ',', ' '); ?> ₽</strong></p>
-        <p>Категория: <?php echo htmlspecialchars($product['category_name'] ?? 'Без категории'); ?></p>
-        <p>В наличии: <?php echo $product['stock']; ?> шт.</p>
+        <div class="product-specs-card">
+            <h3>Характеристики</h3>
+            <div class="spec-row">
+                <span class="spec-label">Цена</span>
+                <span class="spec-value"><strong><?php echo number_format($product['price'], 0, ',', ' '); ?> ₽</strong></span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Категория</span>
+                <span class="spec-value"><?php echo htmlspecialchars($product['category_name'] ?? 'Без категории'); ?></span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">В наличии</span>
+                <span class="spec-value"><?php echo $product['stock']; ?> шт.</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Процессор</span>
+                <span class="spec-value"><?php echo htmlspecialchars($product['processor']); ?></span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Оперативная память</span>
+                <span class="spec-value"><?php echo htmlspecialchars($product['ram']); ?></span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Накопитель</span>
+                <span class="spec-value"><?php echo htmlspecialchars($product['storage']); ?></span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Видеокарта</span>
+                <span class="spec-value"><?php echo htmlspecialchars($product['graphics']); ?></span>
+            </div>
+        </div>
         
-        <h3>Характеристики:</h3>
-        <ul>
-            <li>Процессор: <?php echo htmlspecialchars($product['processor']); ?></li>
-            <li>Оперативная память: <?php echo htmlspecialchars($product['ram']); ?></li>
-            <li>Накопитель: <?php echo htmlspecialchars($product['storage']); ?></li>
-            <li>Видеокарта: <?php echo htmlspecialchars($product['graphics']); ?></li>
-        </ul>
-        
-        <h3>Описание:</h3>
-        <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+        <div class="product-description-card">
+            <h3>Описание</h3>
+            <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+        </div>
         
         <?php if (isLoggedIn()): ?>
             <?php if ($product['stock'] > 0): ?>
                 <form class="product-actions" method="POST" action="cart_add.php">
                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                    <p>
+                    <div class="quantity-selector">
                         <label for="quantity">Количество</label>
                         <input id="quantity" type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
-                    </p>
-                    <p><button type="submit">Добавить в корзину</button></p>
+                    </div>
+                    <button type="submit">Добавить в корзину</button>
                 </form>
             <?php else: ?>
                 <div class="alert alert-error">Товар закончился</div>

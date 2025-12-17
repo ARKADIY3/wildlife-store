@@ -63,9 +63,8 @@ include 'includes/header.php';
     <h1>Вход</h1>
 
     <p class="hint">
-        <span class="hint__badge">?</span>
+        <span class="hint__badge">i</span>
         <span class="hint__content">
-            <div>Тестовые данные для входа</div>
             <div><strong>Админ:</strong> admin / 123456</div>
             <div><strong>Пользователь:</strong> user / 123456</div>
         </span>
@@ -84,7 +83,7 @@ include 'includes/header.php';
             <label for="password">Пароль</label>
             <input id="password" type="password" name="password" required>
         </p>
-        <p><button type="submit">Войти</button></p>
+        <p class="auth-button-center"><button type="submit">Войти</button></p>
     </form>
 
     <p class="auth-links">Нет аккаунта? <a href="register.php">Зарегистрироваться</a></p>

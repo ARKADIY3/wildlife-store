@@ -67,7 +67,7 @@ include 'includes/header.php';
             <label for="confirm_password">Подтвердите пароль</label>
             <input id="confirm_password" type="password" name="confirm_password" required>
         </p>
-        <p><button type="submit">Зарегистрироваться</button></p>
+        <p class="auth-button-center"><button type="submit">Зарегистрироваться</button></p>
     </form>
 
     <p class="auth-links">Уже есть аккаунт? <a href="login.php">Войти</a></p>

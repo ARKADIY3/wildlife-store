@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'includes/header.php';
 ?>
 
-<h1>Контакты / Обратная связь</h1>
+<h1 class="text-center">Контакты / Обратная связь</h1>
 
 <div class="stack-center">
     <div class="card card-pad">
