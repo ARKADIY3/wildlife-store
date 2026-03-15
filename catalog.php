@@ -64,8 +64,6 @@ $products = $stmt->get_result();
 $categories = $conn->query("SELECT * FROM categories ORDER BY name");
 ?>
 
-<h1>Каталог компьютеров</h1>
-
 <form method="GET" class="filters-form">
     <fieldset>
         <legend>Фильтры и поиск</legend>
