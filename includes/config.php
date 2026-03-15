@@ -2,7 +2,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'fixik_bd');
+define('DB_NAME', 'wildlife2_bd');
 
 // Сначала подключаемся без указания БД
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
@@ -43,11 +43,17 @@ if (!$tables_exist) {
         description TEXT,
         price DECIMAL(10,2) NOT NULL,
         category_id INT,
-        processor VARCHAR(100),
-        ram VARCHAR(50),
-        storage VARCHAR(100),
-        graphics VARCHAR(100),
-        image VARCHAR(255) DEFAULT 'default.png',
+        scientific_name VARCHAR(200),
+        light_requirement ENUM('low', 'medium', 'high', 'very_high') DEFAULT 'medium',
+        water_requirement ENUM('low', 'medium', 'high') DEFAULT 'medium',
+        temperature_min DECIMAL(4,1),
+        temperature_max DECIMAL(4,1),
+        humidity_requirement ENUM('low', 'medium', 'high') DEFAULT 'medium',
+        size_height VARCHAR(50),
+        difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'medium',
+        poisonous ENUM('none', 'mild', 'severe') DEFAULT 'none',
+        bloom_period VARCHAR(100),
+        image VARCHAR(255) DEFAULT 'default_plant.png',
         stock INT DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
@@ -98,11 +104,11 @@ if (!$tables_exist) {
     $testPasswordHash = password_hash('123456', PASSWORD_DEFAULT);
 
     $adminUsername = 'admin';
-    $adminEmail = 'admin@fixik.ru';
+    $adminEmail = 'admin@wildlife.ru';
     $adminRole = 'admin';
 
     $userUsername = 'user';
-    $userEmail = 'user@fixik.ru';
+    $userEmail = 'user@wildlife.ru';
     $userRole = 'user';
 
     $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?), (?, ?, ?, ?)");
@@ -120,28 +126,71 @@ if (!$tables_exist) {
     $stmt->execute();
     $stmt->close();
 
-    // Категории
+    // Категории растений
     $conn->query("INSERT INTO categories (name, description) VALUES
-        ('Игровые компьютеры', 'Мощные компьютеры для геймеров'),
-        ('Офисные компьютеры', 'Компьютеры для работы и учебы'),
-        ('Рабочие станции', 'Профессиональные компьютеры для работы с графикой и видео'),
-        ('Компактные ПК', 'Миникомпьютеры и неттопы')");
+        ('Комнатные растения', 'Популярные растения для дома и квартиры'),
+        ('Суккуленты и кактусы', 'Неприхотливые растения, запасающие влагу'),
+        ('Тропические растения', 'Экзотические растения из тропических лесов'),
+        ('Цветущие растения', 'Растения с красивыми цветами'),
+        ('Пальмы и крупномеры', 'Крупные растения для озеленения помещений')");
 
-    // Товары
-    $conn->query("INSERT INTO products (name, description, price, category_id, processor, ram, storage, graphics, image, stock) VALUES
-        ('Fixik Gaming Pro', 'Мощный игровой компьютер для требовательных игр', 89990.00, 1, 'Intel Core i7-13700K', '32GB DDR5', '1TB NVMe SSD', 'NVIDIA RTX 4070', 'gaming_pro.png', 10),
-        ('Fixik Gaming Ultra', 'Топовая конфигурация для киберспорта', 149990.00, 1, 'Intel Core i9-13900K', '64GB DDR5', '2TB NVMe SSD', 'NVIDIA RTX 4090', 'gaming_ultra.png', 5),
-        ('Fixik Gaming Start', 'Игровой ПК начального уровня', 54990.00, 1, 'AMD Ryzen 5 5600X', '16GB DDR4', '512GB NVMe SSD', 'NVIDIA RTX 3060', 'gaming_start.png', 15),
-        ('Fixik Office Basic', 'Базовый офисный компьютер', 29990.00, 2, 'Intel Core i3-12100', '8GB DDR4', '256GB SSD', 'Intel UHD 730', 'office_basic.png', 20),
-        ('Fixik Office Pro', 'Продвинутый офисный компьютер', 44990.00, 2, 'Intel Core i5-12400', '16GB DDR4', '512GB NVMe SSD', 'Intel UHD 730', 'office_pro.png', 12),
-        ('Fixik Workstation', 'Рабочая станция для 3D и видео', 199990.00, 3, 'AMD Ryzen 9 7950X', '128GB DDR5', '4TB NVMe SSD', 'NVIDIA RTX 4080', 'workstation.png', 3),
-        ('Fixik Creator', 'Компьютер для контент-мейкеров', 124990.00, 3, 'Intel Core i7-13700K', '64GB DDR5', '2TB NVMe SSD', 'NVIDIA RTX 4070 Ti', 'creator.png', 7),
-        ('Fixik Mini', 'Компактный мини-ПК', 39990.00, 4, 'Intel Core i5-12400', '16GB DDR4', '512GB NVMe SSD', 'Intel UHD 730', 'mini.png', 8),
-        ('Fixik Nano', 'Ультракомпактный неттоп', 24990.00, 4, 'Intel Core i3-12100T', '8GB DDR4', '256GB SSD', 'Intel UHD 730', 'nano.png', 25)");
+    // Товары (растения) - ВСЕ 12 РАСТЕНИЙ!
+    $conn->query("INSERT INTO products (
+        name, description, price, category_id, 
+        scientific_name, light_requirement, water_requirement, 
+        temperature_min, temperature_max, humidity_requirement, 
+        size_height, difficulty, poisonous, bloom_period, image, stock
+    ) VALUES
+        ('Монстера Деликатесная', 'Крупное тропическое растение с резными листьями', 3490.00, 3,
+         'Monstera deliciosa', 'medium', 'medium', 18.0, 30.0, 'high',
+         '100-150 см', 'easy', 'mild', 'редко', 'monstera.png', 15),
+        
+        ('Сансевиерия \"Тещин язык\"', 'Неприхотливое растение с жесткими вертикальными листьями', 890.00, 1,
+         'Sansevieria trifasciata', 'low', 'low', 15.0, 35.0, 'low',
+         '50-80 см', 'easy', 'severe', 'не цветет', 'sansevieria.png', 30),
+        
+        ('Кактус Эхинокактус Грузони', 'Шаровидный кактус с золотистыми колючками', 1290.00, 2,
+         'Echinocactus grusonii', 'high', 'low', 10.0, 35.0, 'low',
+         '20-40 см', 'easy', 'mild', 'лето', 'echinocactus.png', 25),
+        
+        ('Орхидея Фаленопсис', 'Популярная орхидея с длительным цветением', 2490.00, 4,
+         'Phalaenopsis', 'medium', 'medium', 18.0, 28.0, 'high',
+         '30-50 см', 'medium', 'none', 'до 6 месяцев', 'phalaenopsis.png', 20),
+        
+        ('Замиокулькас \"Долларовое дерево\"', 'Неприхотливое растение с глянцевыми листьями', 1890.00, 1,
+         'Zamioculcas zamiifolia', 'low', 'low', 16.0, 30.0, 'low',
+         '60-80 см', 'easy', 'severe', 'редко', 'zamioculcas.png', 18),
+        
+        ('Фикус Бенджамина', 'Популярное деревце для дома и офиса', 2990.00, 1,
+         'Ficus benjamina', 'medium', 'medium', 15.0, 28.0, 'medium',
+         '80-120 см', 'medium', 'mild', 'не цветет', 'ficus.png', 22),
+        
+        ('Алоэ Вера', 'Лечебное растение с мясистыми листьями', 590.00, 2,
+         'Aloe vera', 'high', 'low', 10.0, 32.0, 'low',
+         '20-30 см', 'easy', 'mild', 'редко', 'aloe.png', 40),
+        
+        ('Драцена Маргината', 'Пальмообразное растение с тонкими листьями', 1990.00, 5,
+         'Dracaena marginata', 'medium', 'medium', 16.0, 28.0, 'medium',
+         '100-150 см', 'easy', 'severe', 'не цветет', 'dracaena.png', 12),
+        
+        ('Хлорофитум хохлатый', 'Ампельное растение, очищающее воздух', 490.00, 1,
+         'Chlorophytum comosum', 'medium', 'medium', 12.0, 30.0, 'medium',
+         '20-40 см (побеги до 80 см)', 'easy', 'none', 'весна-лето', 'chlorophytum.png', 35),
+        
+        ('Крассула \"Денежное дерево\"', 'Толстянка с монетовидными листьями', 890.00, 2,
+         'Crassula ovata', 'high', 'low', 12.0, 30.0, 'low',
+         '30-60 см', 'easy', 'mild', 'зима', 'crassula.png', 28),
+        
+        ('Спатифиллум \"Женское счастье\"', 'Цветущее растение с белыми цветами', 1590.00, 4,
+         'Spathiphyllum', 'medium', 'high', 18.0, 27.0, 'high',
+         '40-60 см', 'medium', 'severe', 'весна-лето', 'spathiphyllum.png', 15),
+        
+        ('Юкка слоновая', 'Крупное растение для просторных помещений', 4990.00, 5,
+         'Yucca elephantipes', 'high', 'low', 10.0, 30.0, 'low',
+         '150-200 см', 'easy', 'mild', 'лето', 'yucca.png', 8)");
 }
 
 // Гарантируем наличие тестовых аккаунтов и исправляем старые тестовые пароли
-// (например, если ранее были вставлены хэши от другого пароля)
 if ($conn->query("SHOW TABLES LIKE 'users'")->num_rows > 0) {
     $testPassword = '123456';
 
@@ -168,12 +217,10 @@ if ($conn->query("SHOW TABLES LIKE 'users'")->num_rows > 0) {
         $needUpdate = false;
 
         if (($info['algo'] ?? 0) !== 0) {
-            // Если это старый демо-хэш от пароля "password", обновляем на 123456
             if (!password_verify($testPassword, $storedPassword) && password_verify('password', $storedPassword)) {
                 $needUpdate = true;
             }
         } else {
-            // Импорт из schema.sql мог сохранить пароль как обычную строку
             if (hash_equals($testPassword, $storedPassword)) {
                 $needUpdate = true;
             }
@@ -187,8 +234,8 @@ if ($conn->query("SHOW TABLES LIKE 'users'")->num_rows > 0) {
         }
     };
 
-    $ensureTestUser('admin', 'admin@fixik.ru', 'admin');
-    $ensureTestUser('user', 'user@fixik.ru', 'user');
+    $ensureTestUser('admin', 'admin@wildlife.ru', 'admin');
+    $ensureTestUser('user', 'user@wildlife.ru', 'user');
 }
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -207,3 +254,4 @@ function redirect($url) {
     header("Location: $url");
     exit();
 }
+?>

@@ -1,40 +1,52 @@
--- Fixik Computer Shop Database Schema
--- База данных: fixik_bd
+-- Wildlife Plant Shop Database Schema
+-- База данных: wildlife_bd
 
-CREATE DATABASE IF NOT EXISTS fixik_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE fixik_bd;
+CREATE DATABASE IF NOT EXISTS wildlife2_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE wildlife2_bd;
 
 -- Таблица пользователей
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    address VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('user', 'admin') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Таблица категорий
+-- Таблица категорий (для растений)
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT
 );
 
--- Таблица товаров (компьютеров)
+-- Таблица товаров (растений)
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
     category_id INT,
-    processor VARCHAR(100),
-    ram VARCHAR(50),
-    storage VARCHAR(100),
-    graphics VARCHAR(100),
-    image VARCHAR(255) DEFAULT 'default.png',
+    
+    -- Специфические поля для растений
+    scientific_name VARCHAR(200),                    -- Латинское название
+    light_requirement ENUM('low', 'medium', 'high', 'very_high') DEFAULT 'medium',  -- Потребность в свете
+    water_requirement ENUM('low', 'medium', 'high') DEFAULT 'medium',               -- Потребность в воде
+    temperature_min DECIMAL(4,1),                     -- Минимальная температура (°C)
+    temperature_max DECIMAL(4,1),                     -- Максимальная температура (°C)
+    humidity_requirement ENUM('low', 'medium', 'high') DEFAULT 'medium',            -- Требования к влажности
+    size_height VARCHAR(50),                           -- Высота растения
+    difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'medium',  -- Сложность ухода
+    poisonous ENUM('none', 'mild', 'severe') DEFAULT 'none',    -- Ядовитость для животных/людей
+    bloom_period VARCHAR(100),                          -- Период цветения
+    
+    image VARCHAR(255) DEFAULT 'default_plant.png',
     stock INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
@@ -83,30 +95,74 @@ CREATE TABLE IF NOT EXISTS contacts (
 );
 
 -- ==========================================
--- ТЕСТОВЫЕ ДАННЫЕ
+-- ТЕСТОВЫЕ ДАННЫЕ ДЛЯ WILDLIFE
 -- ==========================================
 
 -- Пользователи (пароль для обоих: 123456)
--- Примечание: если пароль импортирован в открытом виде, при первом успешном входе он автоматически обновится на password_hash()
-INSERT INTO users (username, email, password, role) VALUES
-('admin', 'admin@fixik.ru', '123456', 'admin'),
-('user', 'user@fixik.ru', '123456', 'user');
+INSERT INTO users (username, email, address , phone , password, role) VALUES
+('admin', 'admin@wildlife.ru', 'г. Сочи', '89182779869', '123456', 'admin'),
+('user', 'user@wildlife.ru', 'г. Краснодар', '89182779869', '123456', 'user');
 
--- Категории
+-- Категории растений
 INSERT INTO categories (name, description) VALUES
-('Игровые компьютеры', 'Мощные компьютеры для геймеров'),
-('Офисные компьютеры', 'Компьютеры для работы и учебы'),
-('Рабочие станции', 'Профессиональные компьютеры для работы с графикой и видео'),
-('Компактные ПК', 'Миникомпьютеры и неттопы');
+('Комнатные растения', 'Популярные растения для дома и квартиры'),
+('Суккуленты и кактусы', 'Неприхотливые растения, запасающие влагу'),
+('Тропические растения', 'Экзотические растения из тропических лесов'),
+('Цветущие растения', 'Растения с красивыми цветами'),
+('Пальмы и крупномеры', 'Крупные растения для озеленения помещений');
 
--- Товары (компьютеры)
-INSERT INTO products (name, description, price, category_id, processor, ram, storage, graphics, image, stock) VALUES
-('Fixik Gaming Pro', 'Мощный игровой компьютер для требовательных игр', 89990.00, 1, 'Intel Core i7-13700K', '32GB DDR5', '1TB NVMe SSD', 'NVIDIA RTX 4070', 'gaming_pro.png', 10),
-('Fixik Gaming Ultra', 'Топовая конфигурация для киберспорта', 149990.00, 1, 'Intel Core i9-13900K', '64GB DDR5', '2TB NVMe SSD', 'NVIDIA RTX 4090', 'gaming_ultra.png', 5),
-('Fixik Gaming Start', 'Игровой ПК начального уровня', 54990.00, 1, 'AMD Ryzen 5 5600X', '16GB DDR4', '512GB NVMe SSD', 'NVIDIA RTX 3060', 'gaming_start.png', 15),
-('Fixik Office Basic', 'Базовый офисный компьютер', 29990.00, 2, 'Intel Core i3-12100', '8GB DDR4', '256GB SSD', 'Intel UHD 730', 'office_basic.png', 20),
-('Fixik Office Pro', 'Продвинутый офисный компьютер', 44990.00, 2, 'Intel Core i5-12400', '16GB DDR4', '512GB NVMe SSD', 'Intel UHD 730', 'office_pro.png', 12),
-('Fixik Workstation', 'Рабочая станция для 3D и видео', 199990.00, 3, 'AMD Ryzen 9 7950X', '128GB DDR5', '4TB NVMe SSD', 'NVIDIA RTX 4080', 'workstation.png', 3),
-('Fixik Creator', 'Компьютер для контент-мейкеров', 124990.00, 3, 'Intel Core i7-13700K', '64GB DDR5', '2TB NVMe SSD', 'NVIDIA RTX 4070 Ti', 'creator.png', 7),
-('Fixik Mini', 'Компактный мини-ПК', 39990.00, 4, 'Intel Core i5-12400', '16GB DDR4', '512GB NVMe SSD', 'Intel UHD 730', 'mini.png', 8),
-('Fixik Nano', 'Ультракомпактный неттоп', 24990.00, 4, 'Intel Core i3-12100T', '8GB DDR4', '256GB SSD', 'Intel UHD 730', 'nano.png', 25);
+-- Товары (растения)
+INSERT INTO products (
+    name, description, price, category_id, 
+    scientific_name, light_requirement, water_requirement, 
+    temperature_min, temperature_max, humidity_requirement, 
+    size_height, difficulty, poisonous, bloom_period, image, stock
+) VALUES
+('Монстера Деликатесная', 'Крупное тропическое растение с резными листьями', 3490.00, 3,
+ 'Monstera deliciosa', 'medium', 'medium', 18.0, 30.0, 'high',
+ '100-150 см', 'easy', 'mild', 'редко', 'monstera.png', 15),
+
+('Сансевиерия "Тещин язык"', 'Неприхотливое растение с жесткими вертикальными листьями', 890.00, 1,
+ 'Sansevieria trifasciata', 'low', 'low', 15.0, 35.0, 'low',
+ '50-80 см', 'easy', 'severe', 'не цветет', 'sansevieria.png', 30),
+
+('Кактус Эхинокактус Грузони', 'Шаровидный кактус с золотистыми колючками', 1290.00, 2,
+ 'Echinocactus grusonii', 'high', 'low', 10.0, 35.0, 'low',
+ '20-40 см', 'easy', 'mild', 'лето', 'echinocactus.png', 25),
+
+('Орхидея Фаленопсис', 'Популярная орхидея с длительным цветением', 2490.00, 4,
+ 'Phalaenopsis', 'medium', 'medium', 18.0, 28.0, 'high',
+ '30-50 см', 'medium', 'none', 'до 6 месяцев', 'phalaenopsis.png', 20),
+
+('Замиокулькас "Долларовое дерево"', 'Неприхотливое растение с глянцевыми листьями', 1890.00, 1,
+ 'Zamioculcas zamiifolia', 'low', 'low', 16.0, 30.0, 'low',
+ '60-80 см', 'easy', 'severe', 'редко', 'zamioculcas.png', 18),
+
+('Фикус Бенджамина', 'Популярное деревце для дома и офиса', 2990.00, 1,
+ 'Ficus benjamina', 'medium', 'medium', 15.0, 28.0, 'medium',
+ '80-120 см', 'medium', 'mild', 'не цветет', 'ficus.png', 22),
+
+('Алоэ Вера', 'Лечебное растение с мясистыми листьями', 590.00, 2,
+ 'Aloe vera', 'high', 'low', 10.0, 32.0, 'low',
+ '20-30 см', 'easy', 'mild', 'редко', 'aloe.png', 40),
+
+('Драцена Маргината', 'Пальмообразное растение с тонкими листьями', 1990.00, 5,
+ 'Dracaena marginata', 'medium', 'medium', 16.0, 28.0, 'medium',
+ '100-150 см', 'easy', 'severe', 'не цветет', 'dracaena.png', 12),
+
+('Хлорофитум хохлатый', 'Ампельное растение, очищающее воздух', 490.00, 1,
+ 'Chlorophytum comosum', 'medium', 'medium', 12.0, 30.0, 'medium',
+ '20-40 см (побеги до 80 см)', 'easy', 'none', 'весна-лето', 'chlorophytum.png', 35),
+
+('Крассула "Денежное дерево"', 'Толстянка с монетовидными листьями', 890.00, 2,
+ 'Crassula ovata', 'high', 'low', 12.0, 30.0, 'low',
+ '30-60 см', 'easy', 'mild', 'зима', 'crassula.png', 28),
+
+('Спатифиллум "Женское счастье"', 'Цветущее растение с белыми цветами', 1590.00, 4,
+ 'Spathiphyllum', 'medium', 'high', 18.0, 27.0, 'high',
+ '40-60 см', 'medium', 'severe', 'весна-лето', 'spathiphyllum.png', 15),
+
+('Юкка слоновая', 'Крупное растение для просторных помещений', 4990.00, 5,
+ 'Yucca elephantipes', 'high', 'low', 10.0, 30.0, 'low',
+ '150-200 см', 'easy', 'mild', 'лето', 'yucca.png', 8);
+

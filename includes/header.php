@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixik - Интернет-магазин компьютеров</title>
+    <title>Wildlife - Интернет-магазин растений</title>
     <style>
         :root {
             --bg: #f3f4f6;
@@ -397,28 +397,60 @@ if (session_status() === PHP_SESSION_NONE) {
               text-align: center;
               font-size: 0.9rem;
           }
+
+
+          :root {
+  --green-primary: #27AE60;
+  --green-dark: #1B5E20;
+}
+
+/* ЛОГОТИП Wildlife - ТОЛСТЫЙ рукописный стиль */
+.site-header a[href="/wildlife/index.php"] {
+  display: inline-block;
+  font-family: cursive, 'Comic Sans MS', 'Brush Script MT', serif;
+  font-size: 1.6em;
+  font-weight: 900; /* Максимально толстый */
+  color: var(--green-dark) !important;
+  text-decoration: none;
+  padding: 4px 0;
+  margin-right: 25px;
+  transition: color 0.3s ease;
+  line-height: 1.3;
+  font-style: italic;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.site-header a[href="/wildlife/index.php"] strong {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.site-header a[href="/wildlife/index.php"]:hover {
+  color: var(--green-primary);
+}
     </style>
 </head>
 <body class="site">
 <header class="site-header">
     <div class="container">
         <nav class="nav">
-            <a href="/Fixik/index.php"><strong>Fixik</strong></a>
-            <a href="/Fixik/catalog.php">Каталог</a>
-            <a href="/Fixik/contact.php">Контакты</a>
+            <a href="/wildlife/index.php"><strong>Wildlife</strong></a>
+            <a href="/wildlife/catalog.php">Каталог</a>
+            <a href="/wildlife/contact.php">Контакты</a>
             
             <div class="nav-right">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="/Fixik/cart.php">Корзина</a>
-                    <a href="/Fixik/orders.php">Мои заказы</a>
+                    <a href="/wildlife/cart.php">Корзина</a>
+                    <a href="/wildlife/orders.php">Мои заказы</a>
                     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                        <a href="/Fixik/admin/index.php" class="btn btn-sm btn-outline">Админ-панель</a>
+                        <a href="/wildlife/admin/index.php" class="btn btn-sm btn-outline">Админ-панель</a>
                     <?php endif; ?>
-                    <span style="color: var(--muted); font-size: 0.9rem;">Привет, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
-                    <a href="/Fixik/logout.php" style="color: var(--danger);">Выход</a>
+                    <span style="color: var(--muted); font-size: 0.9rem;"><a href="/wildlife/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?> </a></span>
+                    <a href="/wildlife/logout.php" style="color: var(--danger);">Выход</a>
                 <?php else: ?>
-                    <a href="/Fixik/login.php">Вход</a>
-                    <a href="/Fixik/register.php" class="btn btn-sm">Регистрация</a>
+                    <a href="/wildlife/login.php">Вход</a>
+                    <a href="/wildlife/register.php" class="btn btn-sm">Регистрация</a>
                 <?php endif; ?>
             </div>
         </nav>

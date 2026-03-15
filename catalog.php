@@ -72,7 +72,7 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
           <div class="filters-grid">
               <div class="filter-field">
                   <label>Поиск</label>
-                  <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Название, процессор...">
+                  <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Название">
               </div>
               
               <div class="filter-field">

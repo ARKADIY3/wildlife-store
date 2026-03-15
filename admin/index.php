@@ -13,7 +13,7 @@ $contacts_count = $conn->query("SELECT COUNT(*) as cnt FROM contacts WHERE is_re
 include 'header.php';
 ?>
 
-<h1>Админ-панель Fixik</h1>
+<h1>Админ-панель Wildlife</h1>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
     <div class="card">

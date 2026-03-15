@@ -92,7 +92,7 @@ include 'includes/header.php';
         <ul>
             <li>Адрес: г. Белореченск, ул. Комсомольска, д. 20</li>
             <li>Телефон: +7 (495) 123-45-67</li>
-            <li>Email: info@fixik.ru</li>
+            <li>Email: info@wildlife.ru</li>
             <li>Режим работы: Пн-Пт 9:00-20:00, Сб-Вс 10:00-18:00</li>
         </ul>
     </div>

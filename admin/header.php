@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админ-панель - Fixik</title>
+    <title>Админ-панель - Wildlife</title>
     <style>
           :root {
               --bg: #f3f4f6;
@@ -202,20 +202,55 @@ if (session_status() === PHP_SESSION_NONE) {
               text-align: center;
               font-size: 0.9rem;
           }
+
+
+
+          /* Природная палитра */
+:root {
+  --green-primary: #27AE60;
+  --green-dark: #1B5E20;
+}
+
+/* ЛОГОТИП Wildlife - ТОЛСТЫЙ рукописный стиль */
+.site-header a[href="/wildlife/index.php"] {
+  display: inline-block;
+  font-family: cursive, 'Comic Sans MS', 'Brush Script MT', serif;
+  font-size: 1.6em;
+  font-weight: 900; /* Максимально толстый */
+  color: var(--green-dark) !important;
+  text-decoration: none;
+  padding: 4px 0;
+  margin-right: 25px;
+  transition: color 0.3s ease;
+  line-height: 1.3;
+  font-style: italic;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.site-header a[href="/wildlife/index.php"] strong {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.site-header a[href="/wildlife/index.php"]:hover {
+  color: var(--green-primary);
+}
+
     </style>
 </head>
 <body class="site">
 <header class="site-header">
     <div class="container">
         <nav class="nav">
-            <strong>Админ-панель Fixik</strong>
-            <a href="/Fixik/admin/index.php">Главная</a>
-            <a href="/Fixik/admin/products.php">Товары</a>
-            <a href="/Fixik/admin/categories.php">Категории</a>
-            <a href="/Fixik/admin/orders.php">Заказы</a>
-            <a href="/Fixik/admin/users.php">Пользователи</a>
-            <a href="/Fixik/admin/contacts.php">Сообщения</a>
-            <a href="/Fixik/logout.php">Выход</a>
+            <a href="/wildlife/index.php"><strong>Wildlife</strong></a>
+            <a href="/wildlife/admin/index.php">Главная</a>
+            <a href="/wildlife/admin/products.php">Товары</a>
+            <a href="/wildlife/admin/categories.php">Категории</a>
+            <a href="/wildlife/admin/orders.php">Заказы</a>
+            <a href="/wildlife/admin/users.php">Пользователи</a>
+            <a href="/wildlife/admin/contacts.php">Сообщения</a>
+            <a href="/wildlife/logout.php">Выход</a>
         </nav>
     </div>
 </header>
